@@ -15,8 +15,8 @@ $(function() {
 
   //обработчик потери фокуса на поле
   $(searchField).on('blur', function() {
-    if(searchField.val() === '') {
-      $(searchField).animate({
+    if ($(this).val() === '') {
+      $(this).animate({
         width: '60%'
       }, 400);
       $(searchButton).animate({
@@ -26,15 +26,15 @@ $(function() {
   });
 
   //отмена стандартного submit
-  $('.search-form').on('submit', function(e) {
+  $('.search-form').on('submit', (e) =>
      e.preventDefault()
-   });
+   );
 })
 /*------------------------------------------------------------------*/
 
 
   //отправка HTTP запроса
-  function search() {
+  const search = () => {
     //обнулить контент перед очередным запросом
     $('.results').html('');
     //значение инпута
@@ -48,11 +48,10 @@ $(function() {
         type: 'video',
         key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
       },
-      function(data) {
+      (data) => {
         //console.log(data);
-        $.each(data.items, function(i, item) {
+        $.each(data.items, (i, item) => {
           const output = getOutput(item);
-
           $('.results').append(output);
         })
       }
@@ -60,18 +59,13 @@ $(function() {
   }
 
   //функция конструирования ответа
-  function getOutput(item) {
-    const videoId = item.id.videoId;
-    const title = item.snippet.title;
-    const description = item.snippet.description;
-    const thumb = item.snippet.thumbnails.high.url;
-    const channelTitle = item.snippet.channelTitle;
-    const videoDate = item.snippet.publishedAt;
+  const getOutput = (item) => {
+    const {id: {videoId}} = item;
+    const {snippet: {title, channelTitle, description, publishedAt, thumbnails: {high: {url: thumb}}}} = item;
 
-    const output = '<li>' + '<div class="list-left">' + '<img src=' + thumb + '>' + '</div>' + '<div class="list-right">' +
-    '<h3>' + '<a href="video.html?' + videoId + '"' + '>' + title + '</a>' + '</h3>' + '<small>By <span class="channelTitle">' +
-     channelTitle + '</span> on ' + videoDate + '</small>' + '<p>' + description + '</p>' + '</div>' + '</li>' +
-    '<div class="clearfix"></div>' + '';
+    const output =`<li><div class="list-left"><img src="${thumb}"></div><div class="list-right"><h3>
+    <a href="video.html?${videoId}">${title}</a></h3><small>By <span class="channelTitle">${channelTitle}
+    </span> on ${publishedAt}</small><p>${description}</p></div></li><div class="clearfix"></div>`;
     return output;
   }
 
@@ -79,26 +73,4 @@ $(function() {
 
   //обработчик заголовка на контейнере ul, дилегирование
   // $('.results').on('click', function(e) {
-  //
   //   const id = $(event.target).closest("li").attr("data-id");
-  //   //console.log(id);
-  //   $.get(
-  //     "https://www.googleapis.com/youtube/v3/videos", {
-  //       part: 'snippet, contentDetails, statistics',
-  //       id: id,
-  //       key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
-  //     },
-  //     function(data) {
-  //       console.log(data);
-  //
-  //
-  //       // const nextPageToken = data.nextPageToken;
-  //       // const prevPageToken = data.prevPageToken;
-  //       // $.each(data.items, function(i, item) {
-  //       //   const output = getOutput(item);
-  //       //
-  //       //   $('#results').append(output);
-  //       // })
-  //     }
-  //   );
-  // })
