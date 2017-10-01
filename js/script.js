@@ -1,7 +1,7 @@
 
 $(function() {
   const searchField = $(".search-field");
-  const searchButton = (".search-btn");
+  const searchButton = $(".search-btn");
 
   //обработчик фокуса на поле
   $(searchField).on('focus', function() {
@@ -26,7 +26,7 @@ $(function() {
   });
 
   //отмена стандартного submit
-  $('.search-form').on('submit', (e) =>
+  $('.search-form').on('submit', e =>
      e.preventDefault()
    );
 })
@@ -48,7 +48,7 @@ $(function() {
         type: 'video',
         key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
       },
-      (data) => {
+      data => {
         //console.log(data);
         $.each(data.items, (i, item) => {
           const output = getOutput(item);
@@ -59,7 +59,7 @@ $(function() {
   }
 
   //функция конструирования ответа
-  const getOutput = (item) => {
+  const getOutput = item => {
     const {id: {videoId}} = item;
     const {snippet: {title, channelTitle, description, publishedAt, thumbnails: {high: {url: thumb}}}} = item;
 
@@ -68,9 +68,3 @@ $(function() {
     </span> on ${publishedAt}</small><p>${description}</p></div></li><div class="clearfix"></div>`;
     return output;
   }
-
-
-
-  //обработчик заголовка на контейнере ul, дилегирование
-  // $('.results').on('click', function(e) {
-  //   const id = $(event.target).closest("li").attr("data-id");

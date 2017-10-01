@@ -1,10 +1,10 @@
 $(function() {
 
-  const getVideoId = (str) => {
+  const getVideoId = str => {
     const arr = str.split('?');
     return arr[1];
   }
-  const videoId = getVideoId( window.location.href);
+  const videoId = getVideoId(window.location.href);
 
 
   //отправка HTTP запроса
@@ -18,7 +18,7 @@ $(function() {
       id: videoId,
       key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
     },
-    (data) => {
+    data => {
       const item = data.items[0];
       //console.log(item);
       const outputDetails = getOutputDetails(item);
@@ -28,7 +28,7 @@ $(function() {
 
 
 //функция конструирования ответа
-const getOutputDetails = (item) => {
+const getOutputDetails = item => {
   const {contentDetails: {definition}} = item;
   const {snippet: {title, description, channelTitle, publishedAt, localized: {title: localized}}} = item;
   const {statistics: {commentCount, dislikeCount, likeCount, viewCount}} = item;
