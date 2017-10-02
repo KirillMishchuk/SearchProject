@@ -13,7 +13,7 @@ $(function() {
     $('.results').html('');
 
   $.get(
-    "https://www.googleapis.com/youtube/v3/videos", {
+    'https://www.googleapis.com/youtube/v3/videos', {
       part: 'snippet, contentDetails, statistics',
       id: videoId,
       key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'

@@ -1,6 +1,6 @@
 
 $(function() {
-  const searchField = $(".search-field");
+  const searchField = $('.search-field');
   const searchButton = $(".search-btn");
 
   //обработчик фокуса на поле
@@ -41,7 +41,7 @@ $(function() {
     const query = $('.search-field').val();
 
     $.get(
-      "https://www.googleapis.com/youtube/v3/search", {
+      'https://www.googleapis.com/youtube/v3/search', {
         maxResults: '10',
         part: 'snippet, id',
         q: query,
