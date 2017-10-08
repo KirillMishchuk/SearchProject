@@ -1,11 +1,10 @@
-import getOutput from './renderList';
-
 //отправка HTTP запроса
-const search = () => {
+const search = (callback) => {
   //обнулить контент перед очередным запросом
   $('.results').html('');
+
   //значение инпута
- const query = $('.search-field').val();
+  const query = $('input[type="search"]').val();
 
   $.get(
     'https://www.googleapis.com/youtube/v3/search', {
@@ -15,18 +14,9 @@ const search = () => {
       type: 'video',
       key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
     },
-    data => {
-      sessionStorage.setItem('page', JSON.stringify(data.items));
-
-      $.each(data.items, (i, item) => {
-        const output = getOutput(item);
-        $('.results').append(output);
-      })
-    }
+    data => callback(null, data)
   )
-  .fail ((xhr) => {
-      $('.results').html(`ошибка ответа от сервера - ${xhr.status}`);
-  });
+  .fail (err => callback(err, null));
 };
 
 export default search;
