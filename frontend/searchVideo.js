@@ -1,7 +1,7 @@
 //отправка HTTP запроса
 const searchVideo = (params, callback) => {
-  //обнулить контент перед очередным запросом
-  $('.results').html('');
+
+  document.querySelector('[type="text"]').value = params.title.split('%20').join(' ');
 
 $.get(
   'https://www.googleapis.com/youtube/v3/videos', {

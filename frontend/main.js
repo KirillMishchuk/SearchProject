@@ -1,8 +1,8 @@
 import search from './search';
 import fillResults from './renderList';
 
-const searchField = document.querySelector('input[type="search"]');
-const searchButton = document.querySelector('input[type="submit"]');
+const searchField = document.querySelector('[type="search"]');
+const searchButton = document.querySelector('[type="submit"]');
 const form = document.querySelector('form');
 const page = sessionStorage.getItem('page');
 

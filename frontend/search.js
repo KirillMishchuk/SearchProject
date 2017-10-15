@@ -1,10 +1,8 @@
 //отправка HTTP запроса
-const search = (callback) => {
-  //обнулить контент перед очередным запросом
-  $('.results').html('');
+const search = callback => {
 
   //значение инпута
-  const query = $('input[type="search"]').val();
+  const query = document.querySelector('[type="search"]').value;
 
   $.get(
     'https://www.googleapis.com/youtube/v3/search', {

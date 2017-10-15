@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
- <head>
-  <meta charset="utf-8">
-  <title>Просмотр видео</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="../css/styles.css" rel="stylesheet">
- </head>
- <body>
-   <div class="container">
-     <header>
-       <h1>Видео<span>Youtube</span></h1>
-       <p>Поиск видео в Youtube</p>
-     </header>
-     <section>
-       <form>
-         <div class="fields">
-           <input type="search" placeholder="Введите поисковой запрос" />
-           <input type="submit" value="Поиск" />
-           <input type="button" value="Назад" />
-         </div>
-       </form>
-       <ul class="results"></ul>
-     </section>
-     <footer>
+  <head>
+    <meta charset="utf-8">
+    <title>Просмотр видео</title>
+	  <link href="../css/styles.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><span class="red">Видео</span>Youtube</h1>
+        <p>Поиск видео в Youtube</p>
+      </header>
+      <form>
+        <div class="fields">
+          <input type="text" class="full" disabled/>
+          <input type="button" value="Назад" />
+        </div>
+      </form>
+      <main>
+      </main>
+      <footer>
        <p>Copyright &copy; 2017, All Right Reserved</p>
-     </footer>
-  </div>
+      </footer>
+    </div>
     <script src="mainVideo.js"></script>
- </body>
+  </body>
 </html>
