@@ -1,5 +1,5 @@
 //функция конструирования ответа
-const fillResults = (err, data) => {
+const renderList = (err, data) => {
   if (err) {
     alert('сервер не отвечает');
     return false;
@@ -20,4 +20,4 @@ const fillResults = (err, data) => {
   $('main').html('').append(`<ul class="results">${output}</ul>`);
 };
 
-export default fillResults;
+export default renderList;

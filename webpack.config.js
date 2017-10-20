@@ -6,7 +6,7 @@ module.exports = {
 
   entry: {
     main: './main.js',
-    mainVideo: './mainVideo.js'
+    details: './details.js'
   },
 
   output: {
@@ -18,19 +18,19 @@ module.exports = {
   devtool: 'source-map',
 
   module: {
-  rules: [
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['env']
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
         }
       }
-    }
-  ]
-},
+    ]
+  },
 
   plugins: [
     new webpack.ProvidePlugin({
@@ -39,7 +39,6 @@ module.exports = {
     }),
     new UglifyJSPlugin({
       exclude: /\/node_modules/
-})
-]
-
+    })
+  ]
 };

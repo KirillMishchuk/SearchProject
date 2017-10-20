@@ -1,5 +1,5 @@
 //функция конструирования ответа
-const getOutputDetails = (err, data) => {
+const renderDetails = (err, data) => {
   if (err) {
     alert('Сервер не отвечает');
     return false;
@@ -17,4 +17,4 @@ const getOutputDetails = (err, data) => {
   $('main').html('').append(`<ul class="results">${outputDetails}</ul>`);
 };
 
-export default getOutputDetails;
+export default renderDetails;
