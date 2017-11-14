@@ -5,8 +5,7 @@ module.exports = {
   context: __dirname + '/frontend',
 
   entry: {
-    main: './main.js',
-    details: './details.js'
+    main: './main.js'
   },
 
   output: {
@@ -18,25 +17,23 @@ module.exports = {
   devtool: 'source-map',
 
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
         }
       }
-    ]
+    }]
   },
 
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery'
+    // })
     new UglifyJSPlugin({
       exclude: /\/node_modules/
     })

@@ -1,20 +1,41 @@
-//отправка HTTP запроса
-const search = callback => {
+class Search {
+  constructor(url, key) {
+    this.serverUrl = url;
+    this.serverKey = key;
+  }
 
-  //значение инпута
-  const query = document.querySelector('[type="search"]').value;
+  getAll(query, callback) {
+    return $.get(`${this.serverUrl}search`, {
+          maxResults: '10',
+          part: 'snippet, id',
+          q: query,
+          type: 'video',
+          key: this.serverKey
+        },
+        data => {
+          if (callback) {
+            callback(data);
+          }
+        }
+      )
+      .fail(err => alert(`Ошибка запроса ${err.status}`));
+  };
 
-  $.get(
-    'https://www.googleapis.com/youtube/v3/search', {
-      maxResults: '10',
-      part: 'snippet, id',
-      q: query,
-      type: 'video',
-      key: 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk'
-    },
-    data => callback(null, data)
-  )
-  .fail (err => callback(err, null));
-};
 
-export default search;
+  get(videoId, callback) {
+    return $.get(`${this.serverUrl}videos`, {
+          part: 'snippet, contentDetails, statistics',
+          id: videoId,
+          key: this.serverKey
+        },
+        data => {
+          if (callback) {
+            callback(data);
+          }
+        }
+      )
+      .fail(err => alert(`Ошибка запроса ${err.status}`));
+  }
+}
+
+export default Search;

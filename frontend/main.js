@@ -1,41 +1,45 @@
-import search from './search';
-import renderList from './renderList';
+import FormHandler from './formhandler';
+import Render from './render';
+import Search from './search';
+import UserStore from './storage';
 
-const main = (() => {
-  const searchField = document.querySelector('[type="search"]');
-  const searchButton = document.querySelector('[type="submit"]');
-  const form = document.querySelector('form');
-  const page = sessionStorage.getItem('page');
+const FORM_SELECTOR = 'form';
+const SEARCH_FIELD = '[type="search"]';
+const SEARCH_BUTTON = '[type="submit"]';
+const BACK_BUTTON = '[type="button"]';
+const CHECKLIST_SELECTOR = 'main';
+const SERVER_URL = 'https://www.googleapis.com/youtube/v3/';
+const SERVER_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
 
-  if (page) {
-    renderList(null, JSON.parse(page));
-  }
+const search = new Search(SERVER_URL, SERVER_KEY);
+const render = new Render(CHECKLIST_SELECTOR);
 
-  //отмена стандартного submit
-  form.addEventListener('submit', e => e.preventDefault());
-  searchButton.addEventListener('click', search.bind(null, renderList));
+const userStore = new UserStore('page');
+let page = userStore.get();
+if (page) {
+  render.addRow(JSON.parse(page));
+}
 
-  //обработчик фокуса на поле
-  $(searchField).on('focus', function() {
-    $(this).animate({
-      width: '100%'
-    }, 400);
-    $(searchButton).animate({
-      right: '10px'
-    }, 400);
-  });
+const formHandler = new FormHandler(FORM_SELECTOR, SEARCH_FIELD, SEARCH_BUTTON, BACK_BUTTON);
+formHandler.addFocusHandler();
+formHandler.addBlurHandler();
+formHandler.addSubmitHandler(query => {
+  return search.getAll(query)
+    .then(data => {
+      userStore.set(JSON.stringify(data));
+      render.addRow(data);
+    })
+});
 
-  //обработчик потери фокуса на поле
-  $(searchField).on('blur', function() {
-    if ($(this).val() === '') {
-      $(this).animate({
-        width: '60%'
-      }, 400);
-      $(searchButton).animate({
-        right: '260px'
-      }, 400);
-    }
-  });
-})();
+formHandler.addBackHandler(() => {
+  render.addRow(JSON.parse(userStore.get()));
+});
 
-export default main;
+render.addClickHandler((id, title) => {
+  formHandler.addInputValue(title);
+  formHandler.addBackBtnVisibility();
+  return search.get(id)
+    .then(data => {
+      render.addRowDetails(data);
+    })
+});
